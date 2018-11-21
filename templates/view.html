@@ -1,0 +1,13 @@
+<ul>
+  {% for gene in gene_list %}
+  <li>
+      <a href={{url_for("gene_by_ID", id = gene[0])}}>
+        {{gene[0]}}
+      </a> : {{gene[1]}}
+      <form method="POST" action={{url_for("del_gene", id = gene[0])}}>
+          <input type="button" value ="fouifoui" onclick="this.form.submit();">
+      </form>
+
+  </li>
+  {%endfor%}
+</ul>

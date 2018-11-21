@@ -1,0 +1,20 @@
+<table style="width:50%">
+  <tr>
+    {% for key in gene.keys()%}
+    <th>{{key}}</th>
+    {% endfor %}
+  </tr>
+  <tr>
+    {% for value in gene.values()%}
+    <td>{{value}}</td>
+    {% endfor %}
+  </tr>
+</table> 
+
+<table style="width:50%">
+    <tr>
+      {% for transcript in transcripts%}
+      <th>{{transcript}}</th>
+      {% endfor %}
+    </tr>
+</table> 
