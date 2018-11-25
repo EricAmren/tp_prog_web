@@ -13,8 +13,11 @@
                 {{gene[0]}}
             </a> : {{gene[1]}}
             <form method="POST" action={{url_for("del_gene", id = gene[0])}}>
-                <button type="button" class="btn btn-danger btn-sm" onclick="this.form.submit();">
-                    <span class="glyphicon glyphicon-trash"></span> Delete
+                <button type="button" class="btn btn-danger btn-xs" 
+                onclick="this.form.submit();"
+                data-toggle="tooltip" data-placement="bottom"
+                title="This will erase this gene from the DB.">
+                    <span class="glyphicon glyphicon-trash"></span> Delete gene
                 </button>
             </form>
         </p>
