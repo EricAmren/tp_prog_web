@@ -8,9 +8,7 @@ from flask import *
 app = Flask(__name__)
 
 ## SQLITE DB
-db_file = '/home/amren/tp_prog_web/static/ensembl_hs63_simple.sqlite'
 
-trash_icon = '/home/amren/tp_prog_web/static/Trash_Can-512.png'
 
 def get_1000_Genes():
     conn = sqlite3.connect(db_file)
@@ -92,4 +90,7 @@ def add_gene():
         return render_template("./new.html")
 
 if __name__ == "__main__":
+    db_file = "static/ensembl_hs63_simple.sqlite"
     app.run(debug=True)
+else:
+    db_file = '/home/amren/tp_prog_web/static/ensembl_hs63_simple.sqlite'

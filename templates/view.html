@@ -1,20 +1,20 @@
 {% extends "root.html" %}
 {% block content %}
-
 <ul>
-  {% for gene in gene_list %}
-  <li>
-      <a href={{url_for("gene_by_ID", id = gene[0])}}>
-        {{gene[0]}}
-      </a> : {{gene[1]}}
-      <form method="POST" action={{url_for("del_gene", id = gene[0])}}>
-          <button type="button" class="btn btn-default btn-sm" onclick="this.form.submit();">
-              <span class="glyphicon glyphicon-trash"></span> Delete
-          </button>
-      </form>
-
-  </li>
-  {%endfor%}
+    {% for gene in gene_list %}
+    <li>
+        <div>
+            <a href={{url_for("gene_by_ID", id = gene[0])}}>
+                {{gene[0]}}
+            </a> : {{gene[1]}}
+            <form method="POST" action={{url_for("del_gene", id = gene[0])}}>
+                <button type="button" class="btn btn-default btn-sm" onclick="this.form.submit();">
+                    <span class="glyphicon glyphicon-trash"></span> Delete
+                </button>
+            </form>
+        </div>
+    </li>
+    {%endfor%}
 </ul>
 {% endblock %}
 
