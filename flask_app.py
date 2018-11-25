@@ -1,17 +1,19 @@
 import sqlite3
-from flask import Flask
-from flask import g
-from flask import render_template
-from flask import url_for
-from flask import redirect
+#from flask import Flask
+#from flask import render_template
+#from flask import url_for
+#from flask import redirect
+from flask import *
 
 app = Flask(__name__)
 
 ## SQLITE DB
-db_file = 'ensembl_hs63_simple.sqlite'
+db_file = '/home/amren/tp_prog_web/static/ensembl_hs63_simple.sqlite'
+
+trash_icon = '/home/amren/tp_prog_web/static/Trash_Can-512.png'
 
 def get_1000_Genes():
-    conn = sqlite3.connect('./static/' + db_file)
+    conn = sqlite3.connect(db_file)
     c = conn.cursor()
     c.execute("SELECT * FROM Genes LIMIT 1000")
     data = c.fetchall()
@@ -19,7 +21,7 @@ def get_1000_Genes():
     return data
 
 def get_gene_by_ID(id):
-    conn = sqlite3.connect('./static/' + db_file)
+    conn = sqlite3.connect(db_file)
     c = conn.cursor()
     id = "'" + str(id) + "'"
     c.execute("SELECT * FROM GENES WHERE Ensembl_Gene_ID= %s" % id)
@@ -28,7 +30,7 @@ def get_gene_by_ID(id):
     return data
 
 def get_transcript_list(id):
-    conn = sqlite3.connect('./static/' + db_file)
+    conn = sqlite3.connect(db_file)
     c = conn.cursor()
     id = "'" + str(id) + "'"
     c.execute("SELECT Ensembl_Transcript_ID, Transcript_Start, Transcript_End FROM Transcripts WHERE Ensembl_Gene_ID=%s" % id)
@@ -50,13 +52,11 @@ def build_gene_dict(gene_tuple):
     return gene
 
 def delete_gene(id):
-    conn = sqlite3.connect('./static/' + db_file)
+    conn = sqlite3.connect(db_file)
     c = conn.cursor()
     id = "'" + str(id) + "'"
     c.execute("DELETE FROM Genes WHERE Ensembl_Gene_ID=%s" % id)
     conn.commit()
-    return "caca"
-
 
 @app.route("/")
 def root():
@@ -71,7 +71,7 @@ def view():
         gene_name = gene_tuple[6]
         gene_list.append((gene_ID, gene_name))
     return render_template("./view.html", gene_list = gene_list)
-    
+
 @app.route("/Genes/view/<id>")
 def gene_by_ID(id):
     data = get_gene_by_ID(id)
@@ -82,7 +82,14 @@ def gene_by_ID(id):
 @app.route("/Genes/del/<id>", methods=['POST'])
 def del_gene(id):
     delete_gene(id)
-    return redirect(url_for("root"))
+    return redirect(url_for("/Genes"))
+
+@app.route("/Genes/new", methods=['GET','POST'])
+def add_gene():
+    if request.method == 'GET': # if GET print the form
+        return render_template("./new.html")
+    else: # if POST return the answers
+        return render_template("./new.html")
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,3 +1,6 @@
+{% extends "root.html" %}
+{% block content %}
+
 <table style="width:50%">
   <tr>
     {% for key in gene.keys()%}
@@ -9,7 +12,7 @@
     <td>{{value}}</td>
     {% endfor %}
   </tr>
-</table> 
+</table>
 
 <table style="width:50%">
     <tr>
@@ -17,4 +20,5 @@
       <th>{{transcript}}</th>
       {% endfor %}
     </tr>
-</table> 
+</table>
+{% endblock %}

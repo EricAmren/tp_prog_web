@@ -1,3 +1,6 @@
+{% extends "root.html" %}
+{% block content %}
+
 <ul>
   {% for gene in gene_list %}
   <li>
@@ -5,9 +8,13 @@
         {{gene[0]}}
       </a> : {{gene[1]}}
       <form method="POST" action={{url_for("del_gene", id = gene[0])}}>
-          <input type="button" value ="fouifoui" onclick="this.form.submit();">
+          <button type="button" class="btn btn-default btn-sm" onclick="this.form.submit();">
+              <span class="glyphicon glyphicon-trash"></span> Delete
+          </button>
       </form>
 
   </li>
   {%endfor%}
 </ul>
+{% endblock %}
+
