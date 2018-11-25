@@ -1,18 +1,23 @@
 {% extends "root.html" %}
 {% block content %}
-<ul>
+<h2>
+    List of genes of 
+    <a href="https://fr.wiktionary.org/wiki/camelopardus#la">camelopardus gigantus</a>
+</h2>
+
+<ul class="list-group">
     {% for gene in gene_list %}
-    <li>
-        <div>
+    <li class="list-group-item">
+        <p>
             <a href={{url_for("gene_by_ID", id = gene[0])}}>
                 {{gene[0]}}
             </a> : {{gene[1]}}
             <form method="POST" action={{url_for("del_gene", id = gene[0])}}>
-                <button type="button" class="btn btn-default btn-sm" onclick="this.form.submit();">
+                <button type="button" class="btn btn-danger btn-sm" onclick="this.form.submit();">
                     <span class="glyphicon glyphicon-trash"></span> Delete
                 </button>
             </form>
-        </div>
+        </p>
     </li>
     {%endfor%}
 </ul>

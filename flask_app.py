@@ -4,6 +4,7 @@ import sqlite3
 #from flask import url_for
 #from flask import redirect
 from flask import *
+from collections import OrderedDict
 
 app = Flask(__name__)
 
@@ -38,7 +39,7 @@ def get_transcript_list(id):
 
 
 def build_gene_dict(gene_tuple):
-    gene = {}
+    gene = OrderedDict()
     gene["Ensembl_Gene_ID"] = gene_tuple[0]
     gene["Chromosome_Name"] = gene_tuple[1]
     gene["Band"] = gene_tuple[2]
@@ -75,7 +76,7 @@ def gene_by_ID(id):
     data = get_gene_by_ID(id)
     gene = build_gene_dict(data[0])
     transcripts = get_transcript_list(id)
-    return render_template("./gene_by_ID.html", gene = gene, transcripts = transcripts )
+    return render_template("./gene_by_ID.html", gene = gene, transcripts = transcripts, id=id )
 
 @app.route("/Genes/del/<id>", methods=['POST'])
 def del_gene(id):
