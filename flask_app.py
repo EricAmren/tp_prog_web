@@ -34,8 +34,15 @@ def get_transcript_list(id):
     id = "'" + str(id) + "'"
     c.execute("SELECT Ensembl_Transcript_ID, Transcript_Start, Transcript_End FROM Transcripts WHERE Ensembl_Gene_ID=%s" % id)
     data = c.fetchall()
+    t_list = []
+    for t in data:
+        t_dict = OrderedDict()
+        t_dict["Transcript_ID"] = t[0]
+        t_dict["start"] = t[1]
+        t_dict["end"] = t[2]
+        t_list.append(t_dict)
     conn.close()
-    return data
+    return t_list
 
 
 def build_gene_dict(gene_tuple):
